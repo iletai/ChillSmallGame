@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: f8ae49601f19d05418539d0a9984fe93
+guid: 1cd08d7b4017f9e4499d29878f96a3d6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - InformUI: {fileID: 7669612227463052492, guid: f6d82d8bb9fc0ae4aacd67383f12be44,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

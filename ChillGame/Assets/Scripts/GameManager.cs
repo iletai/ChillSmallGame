@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum GAMESTATE
 {
+    INIT,
     LOADING,
     GAMEPLAY,
     PAUSE,
@@ -12,12 +15,11 @@ public enum GAMESTATE
     NONE
 }
 
-public delegate void OnSateChangeHandler();
-
+ 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
-    public event OnSateChangeHandler onGameStateChange;
+    public Action<GAMESTATE> onActionChange;
     public GAMESTATE gameState {
         get;
         set;
@@ -28,22 +30,17 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
         _instance = this;
     }
+
     public static GameManager Instance
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameManager();
-            }
-            return _instance;
-        }
+        get => _instance == null ? _instance = new GameManager() : _instance;
     }
 
     public void SetStateChange(GAMESTATE gamestate)
     {
         gameState = gamestate;
-        Debug.Log("Set state: " + gameState);
+        onActionChange?.Invoke(gamestate);
+        Debug.Log("State change: " + gameState);
     }
 
     public void OnApplicationQuit()
@@ -51,4 +48,10 @@ public class GameManager : MonoBehaviour
         _instance = null;
     }
 
+ 
+
+    public void EndGame()
+    {
+    }    
+ 
 }
